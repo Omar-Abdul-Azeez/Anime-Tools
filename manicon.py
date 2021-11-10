@@ -81,7 +81,6 @@ def process(folder: str):
     os.system('attrib +r \"{}\\{}\"'.format(os.getcwd(),folder))
     os.system('attrib +h \"{}\\desktop.ini\"'.format(folder))
     os.system('attrib +h \"{}\"'.format(icon))
-    print("move \"{}\\desktop.ini\" \"{}\\Cover\\desktop.ini\"".format(folder, folder))
 
 
 folders = next(os.walk('.'))[1]
