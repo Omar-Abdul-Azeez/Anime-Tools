@@ -52,7 +52,6 @@ def process(folder: str):
     cover = response["coverImage"]["extraLarge"]
     if not os.path.exists(folder + "\\Cover"):
         os.mkdir(folder + "\\Cover")
-        open(folder + "\\Cover\\.ignore", 'a').close()
     scraper = cfscrape.create_scraper()
     if not os.path.exists(folder + "\\Cover\\" + str(id) + "b.png"):
         if banner:
@@ -73,14 +72,15 @@ def process(folder: str):
     except:
         print("Ran into an error. Blame the Dev :(")
         return
-    f = open(folder + "\\desktop.ini", "w+")
+
+    f = open(folder + "\\desktop.ini", "w+", encoding="cp1252")
     f.write("[.ShellClassInfo]\nConfirmFileOp=0\n")
-    f.write("IconResource={},0".format(name + ".ico"))
-    f.write("\nIconFile={}\nIconIndex=0".format(name + ".ico"))
+    f.write(f"IconResource={name}.ico,0")
+    f.write(f"\nIconFile={name}.ico\nIconIndex=0")
     f.close()
-    os.system('attrib +r \"{}\\{}\"'.format(os.getcwd(), folder))
-    os.system('attrib +h \"{}\\desktop.ini\"'.format(folder))
-    os.system('attrib +h \"{}\"'.format(icon))
+    os.system(f'attrib +r \"{os.getcwd()}\\{folder}\"')
+    os.system(f'attrib +h \"{folder}\\desktop.ini\"')
+    os.system(f'attrib +h \"{icon}\"')
 
 
 folders = next(os.walk('.'))[1]
