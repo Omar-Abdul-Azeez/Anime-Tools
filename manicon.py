@@ -73,14 +73,15 @@ def process(folder: str):
         print("Ran into an error. Blame the Dev :(")
         return
 
-    f = open(folder + "\\desktop.ini", "bw+")
-    f.write("[.ShellClassInfo]\nConfirmFileOp=0\n".encode("ANSI"))
-    f.write(f"IconResource={name}.ico,0".encode("ANSI"))
-    f.write(f"\nIconFile={name}.ico\nIconIndex=0".encode("ANSI"))
+    f = open(folder + "\\desktop.ini", "w+", encoding="ANSI")
+    f.write("[.ShellClassInfo]\nConfirmFileOp=0\n")
+    f.write(f"IconResource={name}.ico,0")
+    f.write(f"\nIconFile={name}.ico\nIconIndex=0")
     f.close()
     os.system('attrib +r \"{}\\{}\"'.format(os.getcwd(),folder))
     os.system('attrib +h \"{}\\desktop.ini\"'.format(folder))
     os.system('attrib +h \"{}\"'.format(icon))
+    print("move \"{}\\desktop.ini\" \"{}\\Cover\\desktop.ini\"".format(folder, folder))
 
 
 folders = next(os.walk('.'))[1]
